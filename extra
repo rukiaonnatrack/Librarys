@@ -1,0 +1,1288 @@
+-- FIOGHTING GAME SC RIPT
+
+local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/Loco-CTO/UI-Library/main/VisionLibV2/source.lua'))()
+
+Window = Library:Create({
+	Name = "untitled hub",
+	Footer = "By rukia and bryce",
+	ToggleKey = Enum.KeyCode.F8,
+	LoadedCallback = function()
+		Window:TaskBarOnly(false)
+	end,
+	KeySystem = false,
+	Key = "123", 
+	MaxAttempts = 5,
+	DiscordLink = nil,
+})
+
+Window:ChangeTogglekey(Enum.KeyCode.RightShift)
+
+local Tab = Window:Tab({
+	Name = "Main",
+	Icon = "rbxassetid://11396131982",
+	Color = Color3.new(1, 0, 0)
+})
+
+local Section1 = Tab:Section({
+	Name = "Main"
+})
+
+local Label = Section1:Label({
+	Name = "TEST LABEL!!@11!!",
+})
+
+local Toggle = Section1:Toggle({
+	Name = "Blatant Nostun",
+	Default = false,
+	Callback = function(v)
+
+		if v then
+			_G.BlatantNostun = true
+		 else
+			 _G.BlatantNostun = false
+		
+		 end
+	end
+})
+
+local LP = game:GetService("Players").LocalPlayer
+
+
+local RunService = game:GetService("RunService")
+
+_G.BlatantNostun = false
+
+local connection
+connection = RunService.RenderStepped:Connect(function()
+  if (not _G.BlatantNostun) then return end
+             LP.Character.Humanoid.WalkSpeed = 26
+
+end)
+
+local Toggle = Section1:Toggle({
+	Name = "No Block CD",
+	Default = false,
+	Callback = function(v)
+
+		if v then
+			_G.block = true
+		 else
+			 _G.block = false
+		
+		 end
+	end
+})
+
+_G.block = false
+
+local connection
+connection = RunService.RenderStepped:Connect(function()
+if (not _G.block) then return end
+game:GetService("Players").LocalPlayer.Character:WaitForChild("BlockCooldown"):Destroy()
+end)
+
+
+local Toggle = Section1:Toggle({
+	Name = "Anti-Fire",
+	Default = false,
+	Callback = function(v)
+
+		if v then
+			_G.fire = true
+		 else
+			 _G.fire = false
+	
+		 end
+	end
+})
+
+_G.fire = false
+
+local connection
+connection = RunService.RenderStepped:Connect(function()
+  if (not _G.fire) then return end
+  if game:GetService("Players").LocalPlayer.Character.Values.OnFire.Value == true then 
+
+       
+	local args = {
+		[1] = Enum.KeyCode.S,
+		[2] = CFrame.new(1804.400390625, 7528.03076171875, -2765.593505859375) * CFrame.Angles(-2.143744468688965, -1.2413746118545532, -2.1692001819610596),
+		[3] = {}
+	}
+	
+	game:GetService("ReplicatedStorage").Dash:FireServer(unpack(args))
+
+
+end
+
+end)
+
+local Toggle = Section1:Toggle({
+	Name = "Remove Void Fire",
+	Default = false,
+	Callback = function(v)
+
+		if v then
+			_G.voidfire = true
+		 else
+			 _G.voidfire = false
+	
+		 end
+	end
+})
+
+_G.voidfire = false
+
+local connection
+connection = RunService.RenderStepped:Connect(function()
+  if (not _G.voidfire) then return end
+ 
+  game:GetService("Players").LocalPlayer.Character:WaitForChild("VoidFire"):Destroy()
+
+end)
+
+
+local MiscSection = Tab:Section({
+	Name = "Misc"
+})
+
+local Toggle = MiscSection:Toggle({
+	Name = "Nostun (NON-BLATANT)",
+	Default = false,
+	Callback = function(v)
+
+		if v then
+			_G.nostun = true
+		 else
+			 _G.nostun = false
+
+	
+		 end
+	end
+})
+
+ _G.nostun = false
+local LP = game:GetService("Players").LocalPlayer
+
+
+local RunService = game:GetService("RunService")
+local connection
+connection = RunService.RenderStepped:Connect(function()
+  if (not _G.nostun) then return end
+             if       LP.Character.Values.Running.Value == true   then 
+              LP.Character.Humanoid.WalkSpeed = 26
+              LP.Character.Humanoid.JumpPower = 50
+          else
+              LP.Character.Humanoid.WalkSpeed = 17
+                     LP.Character.Humanoid.JumpPower = 50
+          end
+end)
+
+local Toggle = MiscSection:Toggle({
+	Name = "Nofall Damage",
+	Default = false,
+	Callback = function(v)
+           
+            if v then
+               _G.fall = true
+            else
+                _G.fall = false
+		
+            end
+        end
+    }
+)
+
+_G.fall = false
+
+local connection
+connection = RunService.RenderStepped:Connect(function()
+if (not _G.fall) then return end
+wait(3)
+game:GetService("ReplicatedStorage"):WaitForChild("FallDamage"):Remove()
+
+    
+
+end)
+
+local name =  game.Players.LocalPlayer.PlayerGui.Bar.Health.IGN
+
+
+local SmallTextbox = MiscSection:SmallTextbox({
+	Name = "Name Changer",
+	Default = "Default Text",
+	Callback = function(v)
+		print(v)
+  local name =  game.Players.LocalPlayer.PlayerGui.Bar.Health.IGN
+        name.Text = v
+	end
+})
+
+local MiscSection = Tab:Section({
+	Name = "Other"
+})
+
+local Button = MiscSection:Button({
+	Name = "Remove Spell Zones",
+	Callback = function()
+		for cool = 2, 1, -1 do
+			print(cool)
+			game:GetService("Workspace").NoSpellZone:Destroy()
+			
+			
+		end
+	end
+})
+
+local Button = MiscSection:Button({
+	Name = "Respawn",
+	Callback = function()
+		game.Players.LocalPlayer.Character.Humanoid.Health = 0
+		
+					end
+})
+
+local Button = MiscSection:Button({
+	Name = "Find Out Days",
+	Callback = function()
+
+        local days =  game:GetService("Players").LocalPlayer.PlayerGui.DayCount.Value
+
+		Library:Notify({
+			Name = "Name Changed!",
+			Text = "Your day count is "..days..". you need "..20-days.." more days to create an house",
+			Icon = "rbxassetid://11401835376",
+			Duration = 3,
+		})
+					end
+})
+
+
+local Button = MiscSection:Button({
+	Name = "Find Out The Weather",
+	Callback = function()
+
+        local Weather = game:GetService("Workspace").Weather.Value
+
+
+		Library:Notify({
+			Name = "Name Changed!",
+			Text = "The weather is "..Weather..".",
+			Icon = "rbxassetid://11401835376",
+			Duration = 3,
+		})
+					end
+})
+
+
+local PlayerTab = Window:Tab({
+	Name = "Player",
+	Icon = "rbxassetid://9581016780",
+	Color = Color3.new(0.474509, 0.474509, 0.474509)
+})
+
+local WalkSpeedSection = PlayerTab:Section({
+	Name = "WALKSPEED"
+})
+
+local walkSpeed = 50
+local jumpPower = 50
+local UIS = game:GetService("UserInputService")
+local RS = game:GetService("RunService")
+local speedToggle = false
+local speedKeybind = false
+
+local Slider = WalkSpeedSection:Slider({
+	Name = "Speed Value",
+	Max = 250,
+	Min = 20,
+	Default = 20,
+	Callback = function(value)
+		walkSpeed = value
+	end
+})
+
+local Toggle = WalkSpeedSection:Toggle({
+	Name = "Speed",
+	Default = false,
+	Callback = function(value)
+		speedToggle = value
+	end
+})
+
+RS.RenderStepped:Connect(function()
+    if speedToggle or speedKeybind then
+        local moveVector = Vector3.new(0, 0, 0)
+        local camera = workspace.CurrentCamera
+        local forward = camera.CFrame.LookVector
+        local right = camera.CFrame.RightVector
+        for _, key in ipairs(UIS:GetKeysPressed()) do
+            if key.KeyCode == Enum.KeyCode.W then
+                moveVector = moveVector + forward
+            elseif key.KeyCode == Enum.KeyCode.A then
+                moveVector = moveVector - right
+            elseif key.KeyCode == Enum.KeyCode.S then
+                moveVector = moveVector - forward
+            elseif key.KeyCode == Enum.KeyCode.D then
+                moveVector = moveVector + right
+            end
+        end
+        local humanoid = game.Players.LocalPlayer.Character.Humanoid
+        if moveVector.magnitude > 0 then
+            humanoid:Move(moveVector, false)
+        end
+        humanoid.WalkSpeed = walkSpeed
+        humanoid.JumpPower = jumpPower
+    end
+end)
+
+local isEnabled = false
+_G.JP = 50
+
+
+local JumpPowerSection = PlayerTab:Section({
+	Name = "JUMPPOWER"
+})
+
+local Slider = JumpPowerSection:Slider({
+	Name = "JumpPower Value",
+	Max = 250,
+	Min = 10,
+	Default = 25,
+	Callback = function(value)
+		_G.JP = value
+		AllowDuplicateCalls = true
+	end
+})
+
+local Toggle = JumpPowerSection:Toggle({
+	Name = "JumpPower",
+	Default = false,
+	Callback = function(value)
+		isEnabled = value
+  
+        if isEnabled then
+            local mt = getrawmetatable(game)
+            setreadonly(mt, false)
+            local old = mt.__newindex
+            
+            mt.__newindex = newcclosure(function(o, k, v)
+                if isEnabled and tostring(o) == "Humanoid" and tostring(k) == "JumpPower" then
+                    return old(o, k, _G.JP)
+                end
+                
+                return old(o, k, v)
+            end)
+        else
+            game:GetService("Players").LocalPlayer.Character.Humanoid.JumpPower = _G.JP
+        end
+	end
+})
+
+local FlightSection = PlayerTab:Section({
+	Name = "FLIGHT"
+})
+
+local Slider = FlightSection:Slider({
+	Name = "Fly Speed",
+	Max = 250,
+	Min = 10,
+	Default = 25,
+	Callback = function(value)
+		flySpeed = value
+	end
+})
+
+local Toggle = FlightSection:Toggle({
+	Name = "Fly",
+	Default = false,
+	Callback = function(value)
+		Fly = value
+	end
+})
+
+game:GetService("Players").LocalPlayer.CharacterAdded:Connect(function(char)
+    char:WaitForChild("Humanoid")
+
+end)
+
+game:GetService("RunService").RenderStepped:Connect(function()
+    if Fly then
+        local char = game:GetService("Players").LocalPlayer.Character
+        local lookVector = (game:GetService("Workspace").CurrentCamera.Focus.p - game:GetService("Workspace").CurrentCamera.CFrame.p).Unit
+        local velocity = Vector3.new()
+        if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.W) then
+            velocity = velocity + lookVector * flySpeed
+        end
+        if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.S) then
+            velocity = velocity - lookVector * flySpeed
+        end
+        if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.A) then
+            velocity = velocity - Vector3.new(-lookVector.Z, 0, lookVector.X) * flySpeed
+        end
+        if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.D) then
+            velocity = velocity + Vector3.new(-lookVector.Z, 0, lookVector.X) * flySpeed
+        end
+        char.HumanoidRootPart.Velocity = velocity
+    end
+end)
+
+local VisualsTab = Window:Tab({
+	Name = "Visuals",
+	Icon = "rbxassetid://6125281125",
+	Color = Color3.new(0.474509, 0.474509, 0.474509)
+})
+
+local AiSection = VisualsTab:Section({
+	Name = "Mobs/Ai"
+})
+
+local NPCESPEnabled = false
+local TextSize = 12
+
+function createNPCBillboard(npcModel)
+    local BillboardGui = Instance.new("BillboardGui", npcModel)
+    BillboardGui.Name = "NPCESP"
+    BillboardGui.AlwaysOnTop = true
+    BillboardGui.LightInfluence = 1
+    BillboardGui.Size = UDim2.new(0, 100, 0, 50)
+    BillboardGui.StudsOffset = Vector3.new(0, 3, 0)
+
+    local TextLabel = Instance.new("TextLabel", BillboardGui)
+    TextLabel.BackgroundTransparency = 1
+    TextLabel.BorderSizePixel = 0
+    TextLabel.Position = UDim2.new(0, 0, 0, 0)
+    TextLabel.Size = UDim2.new(1, 0, 1, 0)
+    TextLabel.Font = Enum.Font.SourceSansBold
+    TextLabel.Text = npcModel.Name
+    TextLabel.TextColor3 = Color3.new(1, 1, 1)
+    TextLabel.TextSize = TextSize
+    TextLabel.TextStrokeTransparency = 0.5
+    TextLabel.TextWrapped = true
+
+    return BillboardGui
+end
+
+function createAllNPCBillboards()
+    for _, npcModel in ipairs(game.Workspace.NPCs:GetChildren()) do
+        createNPCBillboard(npcModel)
+    end
+end
+
+function toggleNPCESP(enabled)
+    for _, npcModel in ipairs(game.Workspace.NPCs:GetChildren()) do
+        local billboardGui = npcModel:FindFirstChild("NPCESP")
+        if enabled then
+            if not billboardGui then
+                createNPCBillboard(npcModel)
+            else
+                billboardGui.Enabled = true
+            end
+        else
+            if billboardGui then
+                billboardGui.Enabled = false
+            end
+        end
+    end
+end
+
+local Toggle = AiSection:Toggle({
+	Name = "NPC ESP",
+	Default = false,
+	Callback = function(value)
+        NPCESPEnabled = value
+        toggleNPCESP(NPCESPEnabled)
+    	end
+})
+
+local TrinketSection = VisualsTab:Section({
+	Name = "TRINKETS"
+})
+
+_G.Idol = false
+HideCommonToggleKey = Enum.KeyCode.F4
+Meshes = {
+	--[16657069] = "Money Bag",
+	["rbxassetid://10681298319"] = "IDOL",
+
+
+	
+}
+
+-- you can set these off and on
+Amulet = true
+IDOL = true
+Opal = true
+PhoenixDown = false
+IceEssence = true
+PhoenixFeather = true
+NightStone = true
+PhilosophersStone = true
+SpiderCloak = true
+LannisAmulet = false
+Bloodthorn = false
+UnknownArtifact = true
+WhiteAmulet = false
+ClickArtifact = false
+
+
+Success = pcall(function()click_detector(Instance.new("ClickDetector"),10)end)
+Success2 = pcall(function()fireclickdetector(Instance.new("ClickDetector"))end)
+Exploit = Success and 2 or (Success2 and 1 or 0)
+
+local MainParent = game.CoreGui
+
+local TrinketEsp = {Trinket = {}}
+TrinketEsp.Visible = true
+TrinketEsp.CommonVisible = false
+
+TrinketEsp.Init = function(part,name,rare,rainbow)		
+	if not TrinketEsp.Trinket[part] then
+		local BillboardUi = Instance.new("BillboardGui")
+		BillboardUi.AlwaysOnTop = true
+		BillboardUi.Size = UDim2.new(3,60,1,30)
+		BillboardUi.ZIndexBehavior = Enum.ZIndexBehavior.Global
+		BillboardUi.StudsOffsetWorldSpace = Vector3.new(0,0,0)
+		BillboardUi.Adornee = part
+			
+		local PlayerName = Instance.new("TextLabel",BillboardUi)
+		PlayerName.BackgroundTransparency = 1
+		PlayerName.TextColor3 = name == "IDOL" and Color3.new(1,1,0) or part.Color
+		PlayerName.Size = UDim2.new(1,0,.3,0)
+		PlayerName.AnchorPoint = Vector2.new(0,.5)
+		PlayerName.Position = UDim2.new(0,0,.2,0)
+		PlayerName.ZIndex = 2
+		PlayerName.Text = name
+		PlayerName.TextScaled = true
+		PlayerName.TextStrokeTransparency = .5
+		PlayerName.Font = Enum.Font.GothamBold
+		PlayerName.TextStrokeColor3 = Color3.fromRGB(33, 33, 33)
+		
+		local Distance = PlayerName:Clone()
+		Distance.Parent = BillboardUi
+		Distance.Font = Enum.Font.Gotham
+		Distance.TextColor3 = Color3.new(1,1,1)
+		Distance.Position = UDim2.new(0,0,.5,0)
+		if name == "Phoenix Feather" then
+			rainbow = true
+			rare = true
+		elseif name == "Jewel" then
+			rare = true
+			elseif name == "IDOL" then
+			rare = true
+		end
+		TrinketEsp.Trinket[part] = {BillboardUi,PlayerName,Distance,rainbow,rare}
+	end
+end
+
+Grabbed = {}
+TrinketEsp.Render = function()
+	for i,v in pairs(TrinketEsp.Trinket) do
+		pcall(function()
+			local Visible = TrinketEsp.Visible and (TrinketEsp.CommonVisible or v[5])
+			v[1].Size = UDim2.new(3,60*1.2,1,30*1.2)
+			v[1].Parent = Visible and MainParent or nil
+			v[1].Adornee = Visible and i or nil
+			v[3].Text = math.floor(((game.Workspace.CurrentCamera.CFrame.p) - i.Position).Magnitude+.5)
+			v[2].Visible = Visible
+			v[3].Visible = Visible
+			if v[4] then
+				v[2].TextColor3 = Color3.fromHSV((tick()*.5)%1,.8,1)
+			end
+		end)
+		if not i or i.Parent == nil then
+			v[1]:Destroy()
+			TrinketEsp.Trinket[i] = nil
+		elseif not Grabbed[i] or tick() > Grabbed[i] then
+			if v[7] and (not v[4] or ClickArtifact) and (Exploit == 1 or Exploit == 2)then
+				if ((game.Players.LocalPlayer.Character.PrimaryPart.Position) - i.Position).Magnitude < Click.MaxActivationDistance then
+					if Exploit == 2 then
+						click_detector(v[5],((game.Players.LocalPlayer.Character.PrimaryPart.Position) - i.Position).Magnitude)
+					elseif Exploit == 1 then
+						fireclickdetector(v[5],((game.Players.LocalPlayer.Character.PrimaryPart.Position) - i.Position).Magnitude)
+					end
+					Grabbed[i] = tick() + .1
+				end
+			end
+		end
+	end
+end
+
+
+TrinketEsp.GetId = function(rbxasset)
+	return tonumber(string.split(rbxasset,"%")[1]:gsub("%D+", "") or 0) or 0
+end
+
+TrinketEsp.CompareColors = function(color,color2)
+	return math.floor(color.r*255) == math.floor(color2.r*255) and math.floor(color.g*255) == math.floor(color2.g*255) and math.floor(color.b*255) == math.floor(color2.b*255)
+end
+
+TrinketEsp.CheckInstance = function(instance)
+	if instance:IsA("SpecialMesh") or instance:IsA("MeshPart") then
+		local Id = instance.MeshId --TrinketEsp.GetId(instance.MeshId)
+		if Meshes[Id] then
+			TrinketEsp.Init(instance:IsA("MeshPart") and instance or instance.Parent,Meshes[Id],false)
+			if instance:FindFirstChildOfClass("SpecialMesh") then
+				TrinketEsp.Init(instance:IsA("SpecialMesh") and instance or instance.Parent,Meshes[Id],false)
+			end
+		elseif Opal and instance:IsA("SpecialMesh") and instance.MeshType == Enum.MeshType.Sphere and instance.Parent.BrickColor == BrickColor.new("Institutional white") and instance.Parent.Material == Enum.Material.Glass then
+			TrinketEsp.Init(instance.Parent,"Opal",false)
+		end
+	elseif instance:IsA("UnionOperation") then
+		if Idol and instance.BrickColor == BrickColor.new("Dark grey") and instance.Material == Enum.Material.Slate and instance.Size.Magnitude<1.3 then
+			TrinketEsp.Init(instance,"Idol",false)
+		elseif Amulet and instance.BrickColor == BrickColor.new("Fossil") and instance.Material == Enum.Material.SmoothPlastic and instance.Size.Magnitude<2.5 then
+			TrinketEsp.Init(instance,"Amulet",false)
+		elseif WhiteAmulet and instance.BrickColor == BrickColor.new("Institutional white") and instance.Material == Enum.Material.Neon and instance.Size.Magnitude<2.5 then
+			TrinketEsp.Init(instance,"White King's Amulet",true,true)
+		elseif IceEssence and instance.Size.Magnitude > .6 and instance.Size.Magnitude < .8 and instance:FindFirstChildOfClass("ParticleEmitter") and TrinketEsp.GetId(instance:FindFirstChildOfClass("ParticleEmitter").Texture) == 20443483 and instance:FindFirstChildOfClass("ParticleEmitter").Size ~= NumberSequence.new(0) and TrinketEsp.CompareColors(instance:FindFirstChildOfClass("ParticleEmitter").Color.Keypoints[1].Value,Color3.fromRGB(27, 152, 152)) and instance.Material == Enum.Material.Neon and instance.Transparency == 1 then
+			TrinketEsp.Init(instance,"Ice Essence",true,true)
+		elseif SpiderCloak and instance.Size.Magnitude > .6 and instance.Size.Magnitude < .8 and instance:FindFirstChildOfClass("ParticleEmitter") and TrinketEsp.GetId(instance:FindFirstChildOfClass("ParticleEmitter").Texture) == 20443483 and instance:FindFirstChildOfClass("ParticleEmitter").Size ~= NumberSequence.new(0) and instance.Material == Enum.Material.Neon and instance.Transparency == 1 then
+			TrinketEsp.Init(instance,"Spider Cloak",true,true)		
+		elseif NightStone and instance.BrickColor == BrickColor.new("Black") and instance.Material == Enum.Material.Neon and instance.Size.Magnitude < .9  then
+			TrinketEsp.Init(instance,"Night Stone",true,true)	
+		elseif PhilosophersStone and instance.BrickColor == BrickColor.new("Persimmon") and instance.Material == Enum.Material.Neon and instance.Size.Magnitude < .9 then
+			TrinketEsp.Init(instance,"Philosopher's Stone",true,true)	
+		elseif Bloodthorn and instance.BrickColor == BrickColor.new("Royal purple")  then
+			TrinketEsp.Init(instance,"Bloodthorn Spawn",true)	
+		elseif LannisAmulet  and  instance.Material == Enum.Material.Neon and instance.BrickColor == BrickColor.new("Institutional white")  and instance.Size.Magnitude < 3.1 then
+			TrinketEsp.Init(instance,"Lannis Amulet",true, true)	
+		elseif UnknownArtifact and instance.Material == Enum.Material.Neon and instance.Size.Magnitude < .9 and not instance.Parent:IsA("Model") then
+			TrinketEsp.Init(instance,"Unknown Artifact",true,true)	
+		elseif UnknownArtifact and instance.Material == Enum.Material.Neon and instance.BrickColor == BrickColor.new("Hot pink") and instance.Size.Magnitude < 2 then
+			TrinketEsp.Init(instance,"Unknown Artifact",true,true)
+		end
+	elseif instance:IsA("BasePart") then
+		if PhoenixDown and instance.Size.Magnitude < 1.4 and instance:FindFirstChildOfClass("Attachment") and instance:FindFirstChildOfClass("Attachment"):FindFirstChildOfClass("ParticleEmitter") and TrinketEsp.GetId(instance:FindFirstChildOfClass("Attachment"):FindFirstChildOfClass("ParticleEmitter").Texture) == 1536547385 and instance.Material == Enum.Material.SmoothPlastic and instance.Transparency == 1 then
+			TrinketEsp.Init(instance,"Phoenix Down",true,true)
+		end
+	end
+end
+
+for i,v in pairs(game.Workspace:GetDescendants()) do
+	TrinketEsp.CheckInstance(v)
+end
+game.Workspace.DescendantAdded:Connect(function(v)
+	TrinketEsp.CheckInstance(v)
+end)
+
+game.Workspace.DescendantRemoving:Connect(function(v)
+	if TrinketEsp.Trinket[v] then
+		TrinketEsp.Trinket[v][1]:Destroy()
+		TrinketEsp.Trinket[v] = nil
+	end
+end)
+
+
+
+game:GetService("RunService").RenderStepped:Connect(function()
+	TrinketEsp.Render()
+	   if _G.Idol == true then 
+        TrinketEsp.Visible = true 
+        else
+            TrinketEsp.Visible = false
+            
+    end
+end)
+
+
+local Toggle = TrinketSection:Toggle({
+	Name = "IDOL ESP",
+	Default = false,
+	Callback = function(v)
+
+        if v then
+            _G.Idol = true
+        else
+            _G.Idol = false
+        end
+	end,
+})
+
+_G.Crucifix = false
+HideCommonToggleKey = Enum.KeyCode.F4
+Meshes = {
+	--[16657069] = "Money Bag",
+	["rbxassetid://11468548833"] = "CRUCIFIX",
+
+
+	
+}
+
+-- you can set these off and on
+Amulet = true
+CRUCIFIX = true
+Opal = true
+PhoenixDown = false
+IceEssence = true
+PhoenixFeather = true
+NightStone = true
+PhilosophersStone = true
+SpiderCloak = true
+LannisAmulet = false
+Bloodthorn = false
+UnknownArtifact = true
+WhiteAmulet = false
+ClickArtifact = false
+
+
+Success = pcall(function()click_detector(Instance.new("ClickDetector"),10)end)
+Success2 = pcall(function()fireclickdetector(Instance.new("ClickDetector"))end)
+Exploit = Success and 2 or (Success2 and 1 or 0)
+
+local MainParent = game.CoreGui
+
+local TrinketEsp = {Trinket = {}}
+TrinketEsp.Visible = true
+TrinketEsp.CommonVisible = false
+
+TrinketEsp.Init = function(part,name,rare,rainbow)		
+	if not TrinketEsp.Trinket[part] then
+		local BillboardUi = Instance.new("BillboardGui")
+		BillboardUi.AlwaysOnTop = true
+		BillboardUi.Size = UDim2.new(3,60,1,30)
+		BillboardUi.ZIndexBehavior = Enum.ZIndexBehavior.Global
+		BillboardUi.StudsOffsetWorldSpace = Vector3.new(0,0,0)
+		BillboardUi.Adornee = part
+			
+		local PlayerName = Instance.new("TextLabel",BillboardUi)
+		PlayerName.BackgroundTransparency = 1
+		PlayerName.TextColor3 = name == "CRUCIFIX" and Color3.new(1,1,0) or part.Color
+		PlayerName.Size = UDim2.new(1,0,.3,0)
+		PlayerName.AnchorPoint = Vector2.new(0,.5)
+		PlayerName.Position = UDim2.new(0,0,.2,0)
+		PlayerName.ZIndex = 2
+		PlayerName.Text = name
+		PlayerName.TextScaled = true
+		PlayerName.TextStrokeTransparency = .5
+		PlayerName.Font = Enum.Font.GothamBold
+		PlayerName.TextStrokeColor3 = Color3.fromRGB(33, 33, 33)
+		
+		local Distance = PlayerName:Clone()
+		Distance.Parent = BillboardUi
+		Distance.Font = Enum.Font.Gotham
+		Distance.TextColor3 = Color3.new(1,1,1)
+		Distance.Position = UDim2.new(0,0,.5,0)
+		if name == "Phoenix Feather" then
+			rainbow = true
+			rare = true
+		elseif name == "Jewel" then
+			rare = true
+			elseif name == "CRUCIFIX" then
+			rare = true
+		end
+		TrinketEsp.Trinket[part] = {BillboardUi,PlayerName,Distance,rainbow,rare}
+	end
+end
+
+Grabbed = {}
+TrinketEsp.Render = function()
+	for i,v in pairs(TrinketEsp.Trinket) do
+		pcall(function()
+			local Visible = TrinketEsp.Visible and (TrinketEsp.CommonVisible or v[5])
+			v[1].Size = UDim2.new(3,60*1.2,1,30*1.2)
+			v[1].Parent = Visible and MainParent or nil
+			v[1].Adornee = Visible and i or nil
+			v[3].Text = math.floor(((game.Workspace.CurrentCamera.CFrame.p) - i.Position).Magnitude+.5)
+			v[2].Visible = Visible
+			v[3].Visible = Visible
+			if v[4] then
+				v[2].TextColor3 = Color3.fromHSV((tick()*.5)%1,.8,1)
+			end
+		end)
+		if not i or i.Parent == nil then
+			v[1]:Destroy()
+			TrinketEsp.Trinket[i] = nil
+		elseif not Grabbed[i] or tick() > Grabbed[i] then
+			if v[7] and (not v[4] or ClickArtifact) and (Exploit == 1 or Exploit == 2)then
+				if ((game.Players.LocalPlayer.Character.PrimaryPart.Position) - i.Position).Magnitude < Click.MaxActivationDistance then
+					if Exploit == 2 then
+						click_detector(v[5],((game.Players.LocalPlayer.Character.PrimaryPart.Position) - i.Position).Magnitude)
+					elseif Exploit == 1 then
+						fireclickdetector(v[5],((game.Players.LocalPlayer.Character.PrimaryPart.Position) - i.Position).Magnitude)
+					end
+					Grabbed[i] = tick() + .1
+				end
+			end
+		end
+	end
+end
+
+
+TrinketEsp.GetId = function(rbxasset)
+	return tonumber(string.split(rbxasset,"%")[1]:gsub("%D+", "") or 0) or 0
+end
+
+TrinketEsp.CompareColors = function(color,color2)
+	return math.floor(color.r*255) == math.floor(color2.r*255) and math.floor(color.g*255) == math.floor(color2.g*255) and math.floor(color.b*255) == math.floor(color2.b*255)
+end
+
+TrinketEsp.CheckInstance = function(instance)
+	if instance:IsA("SpecialMesh") or instance:IsA("MeshPart") then
+		local Id = instance.MeshId --TrinketEsp.GetId(instance.MeshId)
+		if Meshes[Id] then
+			TrinketEsp.Init(instance:IsA("MeshPart") and instance or instance.Parent,Meshes[Id],false)
+			if instance:FindFirstChildOfClass("SpecialMesh") then
+				TrinketEsp.Init(instance:IsA("SpecialMesh") and instance or instance.Parent,Meshes[Id],false)
+			end
+		elseif Opal and instance:IsA("SpecialMesh") and instance.MeshType == Enum.MeshType.Sphere and instance.Parent.BrickColor == BrickColor.new("Institutional white") and instance.Parent.Material == Enum.Material.Glass then
+			TrinketEsp.Init(instance.Parent,"Opal",false)
+		end
+	elseif instance:IsA("UnionOperation") then
+		if Crucifix and instance.BrickColor == BrickColor.new("Dark grey") and instance.Material == Enum.Material.Slate and instance.Size.Magnitude<1.3 then
+			TrinketEsp.Init(instance,"Crucifix",false)
+		elseif Amulet and instance.BrickColor == BrickColor.new("Fossil") and instance.Material == Enum.Material.SmoothPlastic and instance.Size.Magnitude<2.5 then
+			TrinketEsp.Init(instance,"Amulet",false)
+		elseif WhiteAmulet and instance.BrickColor == BrickColor.new("Institutional white") and instance.Material == Enum.Material.Neon and instance.Size.Magnitude<2.5 then
+			TrinketEsp.Init(instance,"White King's Amulet",true,true)
+		elseif IceEssence and instance.Size.Magnitude > .6 and instance.Size.Magnitude < .8 and instance:FindFirstChildOfClass("ParticleEmitter") and TrinketEsp.GetId(instance:FindFirstChildOfClass("ParticleEmitter").Texture) == 20443483 and instance:FindFirstChildOfClass("ParticleEmitter").Size ~= NumberSequence.new(0) and TrinketEsp.CompareColors(instance:FindFirstChildOfClass("ParticleEmitter").Color.Keypoints[1].Value,Color3.fromRGB(27, 152, 152)) and instance.Material == Enum.Material.Neon and instance.Transparency == 1 then
+			TrinketEsp.Init(instance,"Ice Essence",true,true)
+		elseif SpiderCloak and instance.Size.Magnitude > .6 and instance.Size.Magnitude < .8 and instance:FindFirstChildOfClass("ParticleEmitter") and TrinketEsp.GetId(instance:FindFirstChildOfClass("ParticleEmitter").Texture) == 20443483 and instance:FindFirstChildOfClass("ParticleEmitter").Size ~= NumberSequence.new(0) and instance.Material == Enum.Material.Neon and instance.Transparency == 1 then
+			TrinketEsp.Init(instance,"Spider Cloak",true,true)		
+		elseif NightStone and instance.BrickColor == BrickColor.new("Black") and instance.Material == Enum.Material.Neon and instance.Size.Magnitude < .9  then
+			TrinketEsp.Init(instance,"Night Stone",true,true)	
+		elseif PhilosophersStone and instance.BrickColor == BrickColor.new("Persimmon") and instance.Material == Enum.Material.Neon and instance.Size.Magnitude < .9 then
+			TrinketEsp.Init(instance,"Philosopher's Stone",true,true)	
+		elseif Bloodthorn and instance.BrickColor == BrickColor.new("Royal purple")  then
+			TrinketEsp.Init(instance,"Bloodthorn Spawn",true)	
+		elseif LannisAmulet  and  instance.Material == Enum.Material.Neon and instance.BrickColor == BrickColor.new("Institutional white")  and instance.Size.Magnitude < 3.1 then
+			TrinketEsp.Init(instance,"Lannis Amulet",true, true)	
+		elseif UnknownArtifact and instance.Material == Enum.Material.Neon and instance.Size.Magnitude < .9 and not instance.Parent:IsA("Model") then
+			TrinketEsp.Init(instance,"Unknown Artifact",true,true)	
+		elseif UnknownArtifact and instance.Material == Enum.Material.Neon and instance.BrickColor == BrickColor.new("Hot pink") and instance.Size.Magnitude < 2 then
+			TrinketEsp.Init(instance,"Unknown Artifact",true,true)
+		end
+	elseif instance:IsA("BasePart") then
+		if PhoenixDown and instance.Size.Magnitude < 1.4 and instance:FindFirstChildOfClass("Attachment") and instance:FindFirstChildOfClass("Attachment"):FindFirstChildOfClass("ParticleEmitter") and TrinketEsp.GetId(instance:FindFirstChildOfClass("Attachment"):FindFirstChildOfClass("ParticleEmitter").Texture) == 1536547385 and instance.Material == Enum.Material.SmoothPlastic and instance.Transparency == 1 then
+			TrinketEsp.Init(instance,"Phoenix Down",true,true)
+		end
+	end
+end
+
+for i,v in pairs(game.Workspace:GetDescendants()) do
+	TrinketEsp.CheckInstance(v)
+end
+game.Workspace.DescendantAdded:Connect(function(v)
+	TrinketEsp.CheckInstance(v)
+end)
+
+game.Workspace.DescendantRemoving:Connect(function(v)
+	if TrinketEsp.Trinket[v] then
+		TrinketEsp.Trinket[v][1]:Destroy()
+		TrinketEsp.Trinket[v] = nil
+	end
+end)
+
+
+
+game:GetService("RunService").RenderStepped:Connect(function()
+	TrinketEsp.Render()
+	   if _G.Crucifix == true then 
+        TrinketEsp.Visible = true 
+        else
+            TrinketEsp.Visible = false
+            
+    end
+end)
+
+
+local Toggle = TrinketSection:Toggle({
+	Name = "CRUCIFIX ESP",
+	Default = false,
+	Callback = function(v)
+
+        if v then
+            _G.Crucifix = true
+        else
+            _G.Crucifix = false
+        end
+	end,
+})
+
+_G.Aurant = false
+HideCommonToggleKey = Enum.KeyCode.F4
+Meshes = {
+	--[16657069] = "Money Bag",
+	["rbxassetid://5603610480"] = "AURANT",
+
+
+	
+}
+
+-- you can set these off and on
+Amulet = true
+AURANT = true
+Opal = true
+PhoenixDown = true
+IceEssence = true
+PhoenixFeather = true
+NightStone = true
+PhilosophersStone = true
+SpiderCloak = true
+LannisAmulet = false
+Bloodthorn = false
+UnknownArtifact = true
+WhiteAmulet = false
+ClickArtifact = false
+
+
+Success = pcall(function()click_detector(Instance.new("ClickDetector"),10)end)
+Success2 = pcall(function()fireclickdetector(Instance.new("ClickDetector"))end)
+Exploit = Success and 2 or (Success2 and 1 or 0)
+
+local MainParent = game.CoreGui
+
+local TrinketEsp = {Trinket = {}}
+TrinketEsp.Visible = true
+TrinketEsp.CommonVisible = false
+
+TrinketEsp.Init = function(part,name,rare,rainbow)		
+	if not TrinketEsp.Trinket[part] then
+		local BillboardUi = Instance.new("BillboardGui")
+		BillboardUi.AlwaysOnTop = true
+		BillboardUi.Size = UDim2.new(3,60,1,30)
+		BillboardUi.ZIndexBehavior = Enum.ZIndexBehavior.Global
+		BillboardUi.StudsOffsetWorldSpace = Vector3.new(0,0,0)
+		BillboardUi.Adornee = part
+			
+		local PlayerName = Instance.new("TextLabel",BillboardUi)
+		PlayerName.BackgroundTransparency = 1
+		PlayerName.TextColor3 = name == "AURANT" and Color3.new(1,1,0) or part.Color
+		PlayerName.Size = UDim2.new(1,0,.3,0)
+		PlayerName.AnchorPoint = Vector2.new(0,.5)
+		PlayerName.Position = UDim2.new(0,0,.2,0)
+		PlayerName.ZIndex = 2
+		PlayerName.Text = name
+		PlayerName.TextScaled = true
+		PlayerName.TextStrokeTransparency = .5
+		PlayerName.Font = Enum.Font.GothamBold
+		PlayerName.TextStrokeColor3 = Color3.fromRGB(33, 33, 33)
+		
+		local Distance = PlayerName:Clone()
+		Distance.Parent = BillboardUi
+		Distance.Font = Enum.Font.Gotham
+		Distance.TextColor3 = Color3.new(1,1,1)
+		Distance.Position = UDim2.new(0,0,.5,0)
+		if name == "Phoenix Feather" then
+			rainbow = true
+			rare = true
+		elseif name == "Jewel" then
+			rare = true
+			elseif name == "AURANT" then
+			rare = true
+		end
+		TrinketEsp.Trinket[part] = {BillboardUi,PlayerName,Distance,rainbow,rare}
+	end
+end
+
+Grabbed = {}
+TrinketEsp.Render = function()
+	for i,v in pairs(TrinketEsp.Trinket) do
+		pcall(function()
+			local Visible = TrinketEsp.Visible and (TrinketEsp.CommonVisible or v[5])
+			v[1].Size = UDim2.new(3,60*1.2,1,30*1.2)
+			v[1].Parent = Visible and MainParent or nil
+			v[1].Adornee = Visible and i or nil
+			v[3].Text = math.floor(((game.Workspace.CurrentCamera.CFrame.p) - i.Position).Magnitude+.5)
+			v[2].Visible = Visible
+			v[3].Visible = Visible
+			if v[4] then
+				v[2].TextColor3 = Color3.fromHSV((tick()*.5)%1,.8,1)
+			end
+		end)
+		if not i or i.Parent == nil then
+			v[1]:Destroy()
+			TrinketEsp.Trinket[i] = nil
+		elseif not Grabbed[i] or tick() > Grabbed[i] then
+			if v[7] and (not v[4] or ClickArtifact) and (Exploit == 1 or Exploit == 2)then
+				if ((game.Players.LocalPlayer.Character.PrimaryPart.Position) - i.Position).Magnitude < Click.MaxActivationDistance then
+					if Exploit == 2 then
+						click_detector(v[5],((game.Players.LocalPlayer.Character.PrimaryPart.Position) - i.Position).Magnitude)
+					elseif Exploit == 1 then
+						fireclickdetector(v[5],((game.Players.LocalPlayer.Character.PrimaryPart.Position) - i.Position).Magnitude)
+					end
+					Grabbed[i] = tick() + .1
+				end
+			end
+		end
+	end
+end
+
+
+TrinketEsp.GetId = function(rbxasset)
+	return tonumber(string.split(rbxasset,"%")[1]:gsub("%D+", "") or 0) or 0
+end
+
+TrinketEsp.CompareColors = function(color,color2)
+	return math.floor(color.r*255) == math.floor(color2.r*255) and math.floor(color.g*255) == math.floor(color2.g*255) and math.floor(color.b*255) == math.floor(color2.b*255)
+end
+
+TrinketEsp.CheckInstance = function(instance)
+	if instance:IsA("SpecialMesh") or instance:IsA("MeshPart") then
+		local Id = instance.MeshId --TrinketEsp.GetId(instance.MeshId)
+		if Meshes[Id] then
+			TrinketEsp.Init(instance:IsA("MeshPart") and instance or instance.Parent,Meshes[Id],false)
+			if instance:FindFirstChildOfClass("SpecialMesh") then
+				TrinketEsp.Init(instance:IsA("SpecialMesh") and instance or instance.Parent,Meshes[Id],false)
+			end
+		elseif Opal and instance:IsA("SpecialMesh") and instance.MeshType == Enum.MeshType.Sphere and instance.Parent.BrickColor == BrickColor.new("Institutional white") and instance.Parent.Material == Enum.Material.Glass then
+			TrinketEsp.Init(instance.Parent,"Opal",false)
+		end
+	elseif instance:IsA("UnionOperation") then
+		if AURANT and instance.BrickColor == BrickColor.new("Dark grey") and instance.Material == Enum.Material.Slate and instance.Size.Magnitude<1.3 then
+			TrinketEsp.Init(instance,"AURANT",false)
+		elseif Amulet and instance.BrickColor == BrickColor.new("Fossil") and instance.Material == Enum.Material.SmoothPlastic and instance.Size.Magnitude<2.5 then
+			TrinketEsp.Init(instance,"Amulet",false)
+		elseif WhiteAmulet and instance.BrickColor == BrickColor.new("Institutional white") and instance.Material == Enum.Material.Neon and instance.Size.Magnitude<2.5 then
+			TrinketEsp.Init(instance,"White King's Amulet",true,true)
+		elseif IceEssence and instance.Size.Magnitude > .6 and instance.Size.Magnitude < .8 and instance:FindFirstChildOfClass("ParticleEmitter") and TrinketEsp.GetId(instance:FindFirstChildOfClass("ParticleEmitter").Texture) == 20443483 and instance:FindFirstChildOfClass("ParticleEmitter").Size ~= NumberSequence.new(0) and TrinketEsp.CompareColors(instance:FindFirstChildOfClass("ParticleEmitter").Color.Keypoints[1].Value,Color3.fromRGB(27, 152, 152)) and instance.Material == Enum.Material.Neon and instance.Transparency == 1 then
+			TrinketEsp.Init(instance,"Ice Essence",true,true)
+		elseif SpiderCloak and instance.Size.Magnitude > .6 and instance.Size.Magnitude < .8 and instance:FindFirstChildOfClass("ParticleEmitter") and TrinketEsp.GetId(instance:FindFirstChildOfClass("ParticleEmitter").Texture) == 20443483 and instance:FindFirstChildOfClass("ParticleEmitter").Size ~= NumberSequence.new(0) and instance.Material == Enum.Material.Neon and instance.Transparency == 1 then
+			TrinketEsp.Init(instance,"Spider Cloak",true,true)		
+		elseif NightStone and instance.BrickColor == BrickColor.new("Black") and instance.Material == Enum.Material.Neon and instance.Size.Magnitude < .9  then
+			TrinketEsp.Init(instance,"Night Stone",true,true)	
+		elseif PhilosophersStone and instance.BrickColor == BrickColor.new("Persimmon") and instance.Material == Enum.Material.Neon and instance.Size.Magnitude < .9 then
+			TrinketEsp.Init(instance,"Philosopher's Stone",true,true)	
+		elseif Bloodthorn and instance.BrickColor == BrickColor.new("Royal purple")  then
+			TrinketEsp.Init(instance,"Bloodthorn Spawn",true)	
+		elseif LannisAmulet  and  instance.Material == Enum.Material.Neon and instance.BrickColor == BrickColor.new("Institutional white")  and instance.Size.Magnitude < 3.1 then
+			TrinketEsp.Init(instance,"Lannis Amulet",true, true)	
+		elseif UnknownArtifact and instance.Material == Enum.Material.Neon and instance.Size.Magnitude < .9 and not instance.Parent:IsA("Model") then
+			TrinketEsp.Init(instance,"Unknown Artifact",true,true)	
+		elseif UnknownArtifact and instance.Material == Enum.Material.Neon and instance.BrickColor == BrickColor.new("Hot pink") and instance.Size.Magnitude < 2 then
+			TrinketEsp.Init(instance,"Unknown Artifact",true,true)
+		end
+	elseif instance:IsA("BasePart") then
+		if PhoenixDown and instance.Size.Magnitude < 1.4 and instance:FindFirstChildOfClass("Attachment") and instance:FindFirstChildOfClass("Attachment"):FindFirstChildOfClass("ParticleEmitter") and TrinketEsp.GetId(instance:FindFirstChildOfClass("Attachment"):FindFirstChildOfClass("ParticleEmitter").Texture) == 1536547385 and instance.Material == Enum.Material.SmoothPlastic and instance.Transparency == 1 then
+			TrinketEsp.Init(instance,"Phoenix Down",true,true)
+		end
+	end
+end
+
+for i,v in pairs(game.Workspace:GetDescendants()) do
+	TrinketEsp.CheckInstance(v)
+end
+game.Workspace.DescendantAdded:Connect(function(v)
+	TrinketEsp.CheckInstance(v)
+end)
+
+game.Workspace.DescendantRemoving:Connect(function(v)
+	if TrinketEsp.Trinket[v] then
+		TrinketEsp.Trinket[v][1]:Destroy()
+		TrinketEsp.Trinket[v] = nil
+	end
+end)
+
+
+game:GetService("RunService").RenderStepped:Connect(function()
+	TrinketEsp.Render()
+	   if _G.Aurant == true then 
+        TrinketEsp.Visible = true 
+        else
+            TrinketEsp.Visible = false
+            
+    end
+end)
+
+local Toggle = TrinketSection:Toggle({
+	Name = "AURANT ESP",
+	Default = false,
+	Callback = function(v)
+
+        if v then
+            _G.Aurant = true
+        else
+            _G.Aurant = false
+        end
+	end,
+})
+
+
+
+local FunTab = Window:Tab({
+	Name = "Fun",
+	Icon = "rbxassetid://2996501001",
+	Color = Color3.new(0.474509, 0.474509, 0.474509)
+})
+
+local RacialSection = FunTab:Section({
+	Name = "RACIAL SKILLS"
+})
+
+local Label = RacialSection:Label({
+	Name = "COMING SOON...",
+})
+
+local OtherFunSection = FunTab:Section({
+	Name = "OTHER FUN STUFF"
+})
+
+local Button = OtherFunSection:Button({
+	Name = "Lag Server ",
+	Callback = function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/flowersblade/tokyo/main/lag%20script"))()
+	end
+})
+
+local DungeonsTab = Window:Tab({
+	Name = "Dungeons",
+	Icon = "rbxassetid://2996501001",
+	Color = Color3.new(0.474509, 0.474509, 0.474509)
+})
+
+local DungeonsPlayer = DungeonsTab:Section({
+	Name = "Player"
+})
+
+
+local Toggle = DungeonsPlayer:Toggle({
+	Name = "Remove Anti-Heal From Void Flies",
+	Default = false,
+        Callback = function(v)
+           
+            if v then
+               _G.heal = true
+            else
+                _G.heal = false
+		
+            end
+        end
+    }
+)
+
+_G.heal = true
+
+local connection
+connection = RunService.RenderStepped:Connect(function()
+  if (not _G.heal) then return end
+ 
+  game:GetService("Players").LocalPlayer.Character:WaitForChild("NoAbsoluteHeal"):Destroy()
+
+end)
+
+local DungeonsVisuals = DungeonsTab:Section({
+	Name = "Dungeons ESP"
+})
+
+local Toggle = DungeonsVisuals:Toggle({
+	Name = "Dungeon Floor ESP",
+	Default = false,
+        Callback = function(v)
+           
+			_G.Dung = false
+			function roman_to_number(roman)
+				local numeral_values = {
+				  ["I"] = 1,
+				  ["V"] = 5,
+				  ["X"] = 10,
+				  ["L"] = 50,
+				  ["C"] = 100,
+				  ["D"] = 500,
+				  ["M"] = 1000
+				}
+				local total = 0
+				local prev = 0
+				for i = string.len(roman), 1, -1 do
+				  local current = numeral_values[string.upper(roman:sub(i, i))]
+				  if current < prev then
+					total = total - current
+				  else
+					total = total + current
+				  end
+				  prev = current
+				end
+				return total
+			end
+			  
+			  
+			getgenv().TextDung = {
+				['Visible'] = true ;
+				['Center'] = true;
+				['Outline'] = true ;
+				['Font'] = 1;
+				['Size'] = 50;
+				['Color'] = Color3.new(1,1,1);
+				['Position'] = Vector2.new(1000,120,1);
+			}
+			  
+			getgenv().Text = getgenv().Text or Drawing.new("Text")
+			getgenv().DisableLoop = false
+			getgenv().RemoveOnNpcDeath = false
+			getgenv().BreakLoopOnNpcDeath = false
+			getgenv().DungeonFound = false
+			task.spawn(function() while task.wait(0.1) do
+				if getgenv().DisableLoop == true then print('loop break') break end
+				task.spawn(function()
+					if game:GetService("Workspace"):FindFirstChild("DungeonPrize") then 
+						local number = game:GetService("Workspace"):WaitForChild("DungeonPrize"):FindFirstChild('Floor'):WaitForChild('SurfaceGui'):WaitForChild('Frame'):WaitForChild('Floor').Text
+						getgenv().DungeonFound = true 
+						getgenv().Text.Text = "Dungeon Floor: "..tostring(roman_to_number(number))
+					elseif not game:GetService("Workspace"):FindFirstChild("DungeonPrize") and getgenv().DungeonFound  == true then
+						if getgenv().RemoveOnNpcDeath == true then getgenv().Text:Remove() end
+						if getgenv().BreakLoopOnNpcDeath == true then getgenv().DisableLoop = true end
+					end
+				end)
+				task.delay(1,function() for _,v in next, getgenv().TextDung do   
+					getgenv().Text[_] = v
+					task.wait(0.1)
+				end end)
+			end end)
+			  
+			  
+			  while true do task.wait()
+			
+			if _G.Dung == true then 
+			
+			
+				getgenv().TextDung['Visible'] = true
+				
+				elseif _G.Dung == false then
+					
+						getgenv().TextDung['Visible'] = false
+			
+				
+				end
+			end
+
+        end
+    }
+)
+
+local Tab = Window:Tab({
+	Name = "Settings ",
+	Icon = "rbxassetid://11476626403",
+	Color = Color3.new(0.474509, 0.474509, 0.474509)
+})
+
+local Section = Tab:Section({
+	Name = "Miscs"
+})
+
+local Button = Section:Button({
+	Name = "Destroy library",
+	Callback = function()
+		Library:Destroy()
+	end
+})
+
+local Button = Section:Button({
+	Name = "Hide UI",
+	Callback = function()
+		Window:Toggled(false)
+
+		task.wait(3)
+
+		Window:Toggled(true)
+	end
+})
+
+local Button = Section:Button({
+	Name = "Task Bar Only",
+	Callback = function()
+		Window:TaskBarOnly(true)
+
+		task.wait(3)
+
+		Window:TaskBarOnly(false)
+	end
+})
